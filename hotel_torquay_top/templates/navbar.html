@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Hotel Torquay</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link active" aria-current="page" href="{%url 'homepage'%}">Home</a>
+          <a class="nav-link" href="{% url 'add_room' %}">Add Rooms</a>
+          <a class="nav-link" href="{% url 'add_guest' %}">Add Guests</a>
+          <a class="nav-link" href="{% url 'add_booking' %}">Booking</a>
+          <a class="nav-link" href="#">Categories</a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Dropdown</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li><a class="dropdown-item" href="#">Add film</a></li>
+              <li><a class="dropdown-item" href="#">Add Director</a></li>
+            </ul>
+          </li>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- For SupeUser
+  {% if user.is_superuser %}
+  {% endif %}
+
+  For User with Profile
+  {%if user.is_authenticated %}
+  {%else%}
+  {%endif%} -->
