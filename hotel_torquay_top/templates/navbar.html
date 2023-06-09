@@ -4,6 +4,7 @@
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+      {% if user.is_authenticated %}
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           <a class="nav-link active" aria-current="page" href="{%url 'homepage'%}">Home</a>
@@ -19,8 +20,16 @@
               <li><a class="dropdown-item" href="#">Add Director</a></li>
             </ul>
           </li>
+          <a class="nav-link link-light" href="{% url 'logout' %}">Logout</a>
         </div>
       </div>
+      {% else %}
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link active" aria-current="page" class="nav-link link-light" href="/accounts/login">Log In</a>
+          <a class="nav-link link-light" href="/accounts/signup">Sign Up</a>
+      </li>
+      {% endif %}
     </div>
   </nav>
 
