@@ -34,6 +34,12 @@ class Booking(models.Model):
 
     def __str__(self):
         return f"{self.room} room for {self.guest.first_name} {self.guest.last_name}"
+    
+    @property
+    def total_price(self):
+        num_days = (self.check_out - self.check_in).days
+        room_rate = RoomRate.objects.get(room_type=self.room.room_type, room_size=self.room.room_size)
+        return room_rate.room_rate * num_days
 
     
 class RoomType(models.Model):

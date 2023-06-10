@@ -4,6 +4,7 @@ from django.views.generic.edit import CreateView
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
 from .forms import SignupForm
+from visitors.models import Booking
 from django.urls import reverse_lazy
 
 # Create your views here.
@@ -21,10 +22,9 @@ class CustomLoginView(LoginView):
         if user.is_superuser:
             return reverse_lazy('homepage')
         return reverse_lazy('profile', kwargs={'pk' : user.pk})
-    
+       
 class ProfileView(View):
     def get(self, request, pk):
         user = User.objects.get(id=pk)
-        return render(request, 'profile.html', {'user' : user})
-    
-    
+        bookings = Booking.objects.filter(guest=user)
+        return render(request, 'profile.html', {'user': user, 'bookings': bookings})

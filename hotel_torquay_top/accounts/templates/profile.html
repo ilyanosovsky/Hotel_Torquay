@@ -3,34 +3,30 @@
 {% block content %}
 <h1>User Profile</h1>
 <h3>Welcome, {{user.first_name}} {{user.last_name}}</h3>
-<h3>You have booked this ROOM:</h3>
-<div class="d-flex justify-content-between">
-    {% for room in all_rooms %}
-    <div class="col">
-        <div class="card" style="width: 18rem;">
-            <img src="{{ room.room_img }}" style='width: 285px; height: 200px; margin-bottom: 10px' class="card-img-top" alt="room img">
-            <div class="card-body">
-                <h4 class="card-title">Room type: {{ room.room_type }}</h4>
-                {% with room_rate=room.room_type.room_type.room_rate.all %}
-                {% if room_rate %}
-                <h5 class="card-title">Room price: ${{ room_rate.room_rate }}
-                </h5>
-                {% endif %}
-                {% endwith %}
-                <h6 class="card-title">Room size: {{ room.room_size }} person</h6>
-                <p class="card-text">Description:
-                    {{ room.room_type.room_description }}
-                </p>
-                {% if user.is_authenticated%}
-                <form action="{% url 'add_booking' %}" method="get">
-                    <button class="btn btn-primary"> Book Now
-                    </button>
-                  </form>
-                  {% endif %}
-            </div>
-        </div>
-    </div>
-    {% endfor %}
-</div>
+<h3>You can check your Booking details here:</h3>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Room</th>
+            <th>Check In</th>
+            <th>Check Out</th>
+            <th>Guests</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for booking in bookings %}
+        <tr>
+            <td>{{booking.room}}</td>
+            <td>{{booking.check_in}}</td>
+            <td>{{booking.check_out}}</td>
+            <td>{{booking.guest.first_name}} {{booking.guest.last_name}}</td>
+            <td>{{booking.total_price}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
 
 {% endblock content %}
