@@ -8,8 +8,12 @@
             <img src="{{ room.room_img }}" style='width: 285px; height: 200px; margin-bottom: 10px' class="card-img-top" alt="room img">
             <div class="card-body">
                 <h4 class="card-title">Room type: {{ room.room_type }}</h4>
+                {% with room_rate=room.room_type.room_type.room_rate.all %}
+                {% if room_rate %}
                 <h5 class="card-title">Room price: ${{ room_rate.room_rate }}
                 </h5>
+                {% endif %}
+                {% endwith %}
                 <h6 class="card-title">Room size: {{ room.room_size }} person</h6>
                 <p class="card-text">Description:
                     {{ room.room_type.room_description }}

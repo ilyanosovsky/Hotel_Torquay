@@ -13,7 +13,7 @@ class Guest(models.Model):
     passport_number = models.CharField(max_length=20)
 
     def __str__(self):
-        return self.first_name + ' ' + self.last_name
+        return f'{self.first_name} {self.last_name}'
     
 class Room(models.Model):
     room_img = models.URLField(default = '')
@@ -33,7 +33,8 @@ class Booking(models.Model):
     is_cancelled = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.guest.room + 'for' + self.guest.first_name + ' ' + self.guest.last_name + ' '
+        return f"{self.room} room for {self.guest.first_name} {self.guest.last_name}"
+
     
 class RoomType(models.Model):
     type = models.CharField(max_length=20)
