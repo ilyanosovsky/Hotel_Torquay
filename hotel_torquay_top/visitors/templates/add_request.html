@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %} Send Request {% endblock %}
+
+{% block content %}
+
+<h1>
+    Send new request:
+</h1>
+<hr>
+
+<form method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit"> Send </button>
+
+</form>
+
+
+{% endblock %}
