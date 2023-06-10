@@ -17,15 +17,28 @@ class BookingForm(forms.ModelForm):
         model = Booking
         fields = '__all__'
         widgets = {
-            'check_in' : forms.DateInput(attrs={'type' : 'date'})
+            'check_in' : forms.DateInput(attrs={'type' : 'date'}),
+            'check_out' : forms.DateInput(attrs={'type' : 'date'})
         }
 
-    def clean_check_in(self):
+    def clean(self):
+        cleaned_data = super().clean()
         today = timezone.now().date()
         check_in = self.cleaned_data.get('check_in')
-        if check_in < today:
-            raise forms.ValidationError('Check-In can be only in the future')
-        return check_in
+        check_out = self.cleaned_data.get('check_out')
+        if check_in and check_out:
+            if check_in < today:
+                raise forms.ValidationError('Check-In can only be in the future')
+            if check_out == today:
+                raise forms.ValidationError('Check-Out cant be on the same date')
+            
+            room = self.cleaned_data.get('room')
+            if not room.is_available:
+                raise forms.ValidationError('Room is currently unavailable. Please choose another room type...')
+            
+        return cleaned_data
+
+
 
 class RoomTypeForm(forms.ModelForm):
     class Meta:
@@ -47,3 +60,5 @@ class UserRequestForm(forms.ModelForm):
         model = UserRequest
         fields = '__all__'
         exclude = ('user', )
+
+GuestFormSet = forms.modelformset_factory(Guest, form=GuestForm, extra=1)

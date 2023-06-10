@@ -1,0 +1,15 @@
+{% block content %}
+    <h1> Manage producers </h1>
+    <form method="post">
+        {%csrf_token%}
+        <!-- {{ formset.management_form }}
+        {% for form in formset %}
+            {{form.as_p}}
+        {% endfor %} -->
+        {{ formset.management_form }}
+        {% for guest_form in formset %}
+          {{ guest_form.as_p }}
+        {% endfor %}
+        <button type="submit"> submit </button>
+    </form>
+{% endblock content %}

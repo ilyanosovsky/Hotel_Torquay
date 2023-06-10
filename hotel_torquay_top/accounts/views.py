@@ -20,7 +20,7 @@ class CustomLoginView(LoginView):
         user = self.request.user
         if user.is_superuser:
             return reverse_lazy('homepage')
-        return reverse_lazy('profile')
+        return reverse_lazy('profile', kwargs={'pk' : user.pk})
     
 class ProfileView(View):
     def get(self, request, pk):

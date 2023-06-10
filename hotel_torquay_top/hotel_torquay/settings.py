@@ -74,14 +74,21 @@ TEMPLATES = [
 WSGI_APPLICATION = "hotel_torquay.wsgi.application"
 
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'hotelproject',
+#         'USER': 'ivankozin',
+#         'PASSWORD': '2158310',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'hotel_torquay_db',
-        'USER': 'postgres',
-        'PASSWORD': '1235846Qq',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 

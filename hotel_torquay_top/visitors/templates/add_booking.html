@@ -12,6 +12,10 @@
 <form method="post">
     {% csrf_token %}
     {{form.as_p}}
+    {{ formset.management_form }}
+        {% for guest_form in formset %}
+          {{ guest_form.as_p }}
+        {% endfor %}
     <button type="submit">Add Booking</button>
 
 </form>

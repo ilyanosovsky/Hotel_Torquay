@@ -1,12 +1,28 @@
 {% extends 'base.html' %}
-
+{% block title %} Hotel Torquay {% endblock %}
 {% block content %}
-
-
-Hello World
-
-
-
-
-
+<div class="d-flex justify-content-between">
+    {% for room in all_rooms %}
+    <div class="col">
+        <div class="card" style="width: 18rem;">
+            <img src="{{ room.room_img }}" style='width: 285px; height: 200px; margin-bottom: 10px' class="card-img-top" alt="room img">
+            <div class="card-body">
+                <h4 class="card-title">Room type: {{ room.room_type }}</h4>
+                <h5 class="card-title">Room price: ${{ room_rate.room_rate }}
+                </h5>
+                <h6 class="card-title">Room size: {{ room.room_size }} person</h6>
+                <p class="card-text">Description:
+                    {{ room.room_type.room_description }}
+                </p>
+                {% if user.is_authenticated%}
+                <form action="{% url 'add_booking' %}" method="get">
+                    <button class="btn btn-primary"> Book Now
+                    </button>
+                  </form>
+                  {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 {% endblock content %}

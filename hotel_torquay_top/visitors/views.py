@@ -1,12 +1,13 @@
 from typing import Any, Dict, Optional
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView
+from django.views.generic import ListView, TemplateView
 from django.views.generic.edit import CreateView
 from .models import Room, RoomType, RoomSize, RoomRate, Guest, Booking, UserRequest
-from .forms import RoomForm, RoomTypeForm, RoomSizeForm, RoomRateForm, GuestForm, BookingForm, UserRequestForm
+from .forms import RoomForm, RoomTypeForm, RoomSizeForm, RoomRateForm, GuestForm, BookingForm, UserRequestForm, GuestFormSet
 from django.contrib.auth.models import User
 from accounts.models import UserProfile
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
@@ -16,7 +17,7 @@ class HomePageView(ListView):
     context_object_name = 'all_rooms'
 
     def get_queryset(self):
-        return Room.objects.order_by('room_number')
+        return Room.objects.order_by('room_type')
     
 class RoomCreateView(CreateView):
     model = Room
@@ -89,3 +90,16 @@ class InfoRequestView(CreateView):
         context = super(InfoRequestView, self).get_context_data(**kwargs)
         context['all_requests'] = UserRequest.objects.all()
         return context
+
+def manage_guests(request):
+    if request.method == 'POST':
+        formset = GuestFormSet(request.POST, queryset=Guest.objects.all())
+        if formset.is_valid():
+            formset.save()
+    
+    formset = GuestFormSet(queryset=Guest.objects.all())
+    context = {'formset' : formset}
+    return render(request, 'manage_guests.html', context)
+
+# class BookingProfileView(LoginRequiredMixin, TemplateView):
+    
